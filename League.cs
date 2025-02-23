@@ -317,7 +317,7 @@ namespace Torn
 		public int? TeamId { get; set; }
 		public DateTime Time { get; set; }
 
-		Colour colour;
+        Colour colour;
 		public Colour Colour
 		{
 			get
@@ -356,7 +356,7 @@ namespace Torn
 			return new GameTeam
 			{
 				Time = Time,
-				TeamId = TeamId,
+                TeamId = TeamId,
 				Colour = colour,
 				Score = Score,
 				Adjustment = Adjustment,
@@ -494,6 +494,31 @@ namespace Torn
 	{
 		public string Title { get; set; }
 		public DateTime Time { get; set; }
+		public DateTime UTCTime
+		{
+			get
+			{
+				if (Time != null)
+				{
+					return Utility.GetUTCTime(Time);
+				} else
+				{
+					return DateTime.UtcNow.ToUniversalTime();
+				}
+
+				
+			}
+		}
+
+
+		public String TimeZone
+		{
+			get
+			{
+				return Utility.GetTimeZone();
+			}
+		}
+
 		/// <summary>If true, don't serve this game from our internal webserver, or include it in any webserver reports.</summary>
 		public bool Secret { get; set; }
 		public List<GameTeam> Teams { get; private set; }
@@ -953,11 +978,11 @@ namespace Torn
 			var debug = new StringBuilder();
 			if (serverGame.Game == null)
 			{
-				serverGame.Game = new Game
+                serverGame.Game = new Game
 				{
 					Time = serverGame.Time,
 					ServerGame = serverGame
-				};
+                };
 				debug.Append("Created new serverGame for ");
 				debug.Append(serverGame.Time.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.CurrentCulture));
 				debug.Append(".\n");
@@ -1386,7 +1411,10 @@ namespace Torn
 
 				doc.AppendNode(gameNode, "title", game.Title);
 				doc.AppendNode(gameNode, "ansigametime", game.Time.ToString("yyyy/MM/dd HH:mm:ss"));
-				doc.AppendNode(gameNode, "hits", game.Hits);
+				doc.AppendNode(gameNode, "ansigametimeutc", game.UTCTime.ToString("yyyy/MM/dd HH:mm:ss"));
+				doc.AppendNode(gameNode, "tz", game.TimeZone);
+
+                doc.AppendNode(gameNode, "hits", game.Hits);
 				if (game.Secret)
 					doc.AppendNode(gameNode, "secret", "y");
 				if (game.Reported)
