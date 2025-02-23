@@ -55,7 +55,6 @@ namespace Torn
 
 
 
-
         /// <summary>Get UTC time using machine timezone</summary>
         public static DateTime GetUTCTime(DateTime time)
         {
@@ -72,13 +71,6 @@ namespace Torn
             TimeZoneInfo localZone = TimeZoneInfo.Local;
             return localZone.Id;
         }
-
-
-
-
-
-
-
 
         public static Color StringToColor(string s)
 		{
