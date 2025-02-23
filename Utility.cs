@@ -52,26 +52,6 @@ namespace Torn
 			return new DateTime((dateTime.Ticks / delta.Ticks) * delta.Ticks);
 		}
 
-
-
-
-        /// <summary>Get UTC time using machine timezone</summary>
-        public static DateTime GetUTCTime(DateTime time)
-        {
-            // get machine's timezone
-            TimeZoneInfo localZone = TimeZoneInfo.Local;
-            // take the time and convert it to UTC
-            DateTime utcTime = TimeZoneInfo.ConvertTimeToUtc(time, localZone);
-
-            return utcTime;
-        }
-
-        public static string GetTimeZone()
-        {
-            TimeZoneInfo localZone = TimeZoneInfo.Local;
-            return localZone.Id;
-        }
-
         public static Color StringToColor(string s)
 		{
 			double hash = 0;
