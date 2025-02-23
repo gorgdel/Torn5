@@ -52,7 +52,7 @@ namespace Torn
 			return new DateTime((dateTime.Ticks / delta.Ticks) * delta.Ticks);
 		}
 
-        public static Color StringToColor(string s)
+		public static Color StringToColor(string s)
 		{
 			double hash = 0;
 			foreach (char c in s)
